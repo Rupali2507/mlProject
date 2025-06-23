@@ -4,16 +4,23 @@ from datetime import datetime
 
 LOG_FILE = f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log"
 
-logs_path = os.path.join(os.getcwd(), "logs", LOG_FILE)
+# Directory path for logs
+logs_dir = os.path.join(os.getcwd(), "logs")
 
-os.makedirs(logs_path,exist_ok=True)
+# Create the logs directory if it doesn't exist
+os.makedirs(logs_dir, exist_ok=True)
 
-LOG_FILE_PATH = os.path.join(logs_path, LOG_FILE)
+# Full path to the log file
+LOG_FILE_PATH = os.path.join(logs_dir, LOG_FILE)
 
+logging.basicConfig(
+    filename=LOG_FILE_PATH,
+    format='%(asctime)s %(name)s %(levelname)s %(message)s',
+    level=logging.INFO,
+)
 
-logging.basicConfig(filename=LOG_FILE_PATH,
-                    format='%(asctime)s %(name)s %(levelname)s %(message)s',
-                    level=logging.INFO,
-                    filemode='w')
-
-
+def get_log_file_path():
+    """
+    Returns the path of the log file.
+    """
+    return LOG_FILE_PATH
